@@ -1,16 +1,21 @@
-import { useEffect, useState } from 'react';
-import { nanoid } from 'nanoid';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import AddContactForm from './AddContactForm';
 import ContactsList from './ContactsList';
 import FilterField from './FilterField';
+import { addContact, deleteContact } from 'redux/contactsSlice';
+import { changeFilter } from 'redux/filterSlice';
 
 export const App = () => {
   const LS_KEY = 'ls-contacts';
 
-  const [filter, setFilter] = useState('');
-  const [contacts, setContacts] = useState(
-    JSON.parse(localStorage.getItem(LS_KEY)) || []
-  );
+  const contacts = useSelector(state => state.contacts);
+  const filter = useSelector(state => state.filter);
+  const dispatch = useDispatch();
+
+  // const [contacts, setContacts] = useState(
+  //   JSON.parse(localStorage.getItem(LS_KEY)) || []
+  // );
 
   useEffect(() => {
     localStorage.setItem(LS_KEY, JSON.stringify(contacts));
@@ -24,17 +29,15 @@ export const App = () => {
       alert(`${person.name} is already in contacts.`);
       return;
     }
-    setContacts(prev => {
-      return [...prev, { ...person, id: nanoid() }];
-    });
+    dispatch(addContact(person));
   };
 
   const onDelete = id => {
-    setContacts(prev => prev.filter(contact => contact.id !== id));
+    dispatch(deleteContact(id));
   };
 
   const onFilter = value => {
-    setFilter(value);
+    dispatch(changeFilter(value));
   };
 
   const getFilteredContacts = () => {
