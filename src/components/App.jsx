@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import AddContactForm from './AddContactForm';
 import ContactsList from './ContactsList';
@@ -7,19 +6,9 @@ import { addContact, deleteContact } from 'redux/contactsSlice';
 import { changeFilter } from 'redux/filterSlice';
 
 export const App = () => {
-  const LS_KEY = 'ls-contacts';
-
   const contacts = useSelector(state => state.contacts);
   const filter = useSelector(state => state.filter);
   const dispatch = useDispatch();
-
-  // const [contacts, setContacts] = useState(
-  //   JSON.parse(localStorage.getItem(LS_KEY)) || []
-  // );
-
-  useEffect(() => {
-    localStorage.setItem(LS_KEY, JSON.stringify(contacts));
-  }, [contacts]);
 
   const onNameSubmit = person => {
     const checkContact = contacts.some(
