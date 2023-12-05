@@ -15,7 +15,7 @@ const ContactsList = () => {
   };
 
   const getFilteredContacts = () => {
-    return contacts.filter(contact => {
+    return contacts?.filter(contact => {
       return contact.name.toLowerCase().includes(filter.toLowerCase());
     });
   };
@@ -27,7 +27,7 @@ const ContactsList = () => {
       <h2>Contacts</h2>
 
       <List>
-        {visibleContacts.map(contact => {
+        {visibleContacts?.map(contact => {
           return (
             <ListElement
               name={contact.name}
