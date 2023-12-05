@@ -1,13 +1,22 @@
 import React from 'react';
 import { Wrapper } from './FilterField.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeFilter } from 'redux/filterSlice';
 
-const FilterField = ({ contactFilter, onFilter }) => {
+const FilterField = () => {
+  const filter = useSelector(state => state.filter);
+  const dispatch = useDispatch();
+
+  const onFilter = value => {
+    dispatch(changeFilter(value));
+  };
+
   return (
     <Wrapper>
       <p>Find contact by name</p>
       <input
         type="text"
-        value={contactFilter}
+        value={filter}
         onChange={e => {
           onFilter(e.target.value);
         }}

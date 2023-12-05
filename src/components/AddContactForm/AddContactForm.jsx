@@ -8,6 +8,8 @@ import {
   ErrorMessage,
   Label,
 } from './AddContactForm.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'redux/contactsSlice';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().min(2, 'Too Short!').required('Required!'),
@@ -19,7 +21,20 @@ const validationSchema = Yup.object().shape({
     .required('Required!'),
 });
 
-const AddContactForm = ({ onNameSubmit }) => {
+const AddContactForm = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts);
+
+  const onNameSubmit = person => {
+    const checkContact = contacts.some(
+      contact => contact.name.toLowerCase() === person.name.toLowerCase()
+    );
+    if (checkContact) {
+      alert(`${person.name} is already in contacts.`);
+      return;
+    }
+    dispatch(addContact(person));
+  };
   return (
     <Wrapper>
       <Formik
