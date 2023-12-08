@@ -2,9 +2,10 @@ import { useSelector } from 'react-redux';
 import AddContactForm from './AddContactForm';
 import ContactsList from './ContactsList';
 import FilterField from './FilterField';
+import { selectContacts } from 'redux/contactsSlice';
 
 export const App = () => {
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(selectContacts);
 
   return (
     <>
