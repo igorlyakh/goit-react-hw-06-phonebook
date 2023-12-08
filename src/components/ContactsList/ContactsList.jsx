@@ -2,11 +2,12 @@ import ListElement from 'components/ListElement';
 import React from 'react';
 import { List, Wrapper } from './ContactsList.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact } from 'redux/contactsSlice';
+import { deleteContact, selectContacts } from 'redux/contactsSlice';
+import { selectFilter } from 'redux/filterSlice';
 
 const ContactsList = () => {
-  const contacts = useSelector(state => state.contacts);
-  const filter = useSelector(state => state.filter);
+  const contacts = useSelector(selectContacts);
+  const filter = useSelector(selectFilter);
 
   const dispatch = useDispatch();
 

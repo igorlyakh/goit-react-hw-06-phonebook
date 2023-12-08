@@ -1,10 +1,10 @@
 import React from 'react';
 import { Wrapper } from './FilterField.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeFilter } from 'redux/filterSlice';
+import { changeFilter, selectFilter } from 'redux/filterSlice';
 
 const FilterField = () => {
-  const filter = useSelector(state => state.filter);
+  const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
 
   const onFilter = value => {
